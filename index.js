@@ -1,7 +1,6 @@
 //hook in dependencies
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
-const util = require("util");
 
 //Initial Greeting
 console.log("Hello!");
@@ -215,6 +214,7 @@ const runIt = () => {
                 {name: "Add a Role", value: 5},
                 {name: "Add an Employee", value: 6},
                 {name: "Update an Employee", value: 7},
+                {name: "Quit", value: 8},
             ],
             name: "listChoice"
         }
@@ -250,6 +250,11 @@ const runIt = () => {
 
             case 7:
                 break;
+
+            case 8:
+                console.log("Goodbye!");
+                db.close();
+                return;
 
             default:
                 console.log("Oops!");
