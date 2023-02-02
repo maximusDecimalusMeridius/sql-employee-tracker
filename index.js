@@ -1,7 +1,52 @@
-const db = require("mysql2");
+const mysql = require("mysql2");
 const inquirer = require("inquirer");
 
 console.log("Hello!");
+
+const db = mysql.createConnection(
+    {
+        host: 'localhost',
+        user: 'root',
+        password: 'password',
+        database: 'company_db'
+    }
+)
+
+const viewAllDepartments = () => {
+    db.query(`SELECT * FROM department`, (error, data) => {
+        if(error){
+            throw(error);
+        } else {
+            console.table(data);
+        }
+    })
+}
+
+const viewAllRoles = () => {
+    db.query(`SELECT * FROM role`, (error, data) => {
+        if(error){
+            throw(error);
+        } else {
+            console.table(data);
+        }
+    })
+}
+
+const viewAllEmployees = () => {
+    db.query(`SELECT * FROM employee`, (error, data) => {
+        if(error){
+            throw(error);
+        } else {
+            console.table(data);
+        }
+    })
+}
+
+const delayedRunIt = () => {
+    setTimeout(() => {
+        runIt();
+    }, 2000)
+}
 
 //Present user with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
 const runIt = () => {
@@ -24,12 +69,18 @@ const runIt = () => {
     .then( answer => {
         switch (answer.listChoice){
             case 1:
+                viewAllDepartments();
+                delayedRunIt();
                 break;
 
             case 2:
+                viewAllRoles();
+                delayedRunIt();
                 break;
 
             case 3:
+                viewAllEmployees();
+                delayedRunIt();
                 break;
 
             case 4:
