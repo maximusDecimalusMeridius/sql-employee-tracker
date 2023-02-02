@@ -78,6 +78,19 @@ const addDepartment = () => {
 }
 
 const addRole = () => {
+    
+    let choiceArray = [];
+
+    db.query(`SELECT id, name FROM department`, (error, data) => {
+        if(error){
+            throw(error);
+        } else {
+            for(let i = 0; i < data.length; i++){
+                choiceArray.push({name: `${data[i].name}`, value: `${data[i].id}`});
+            }
+        }
+    })
+
     inquirer.prompt([
         {
             type: "input",
@@ -90,8 +103,9 @@ const addRole = () => {
             name: "salary"
         },
         {
-            type: "input",
+            type: "list",
             message: "Please enter the department for the role",
+            choices: choiceArray,
             name: "department"
         }
     ])
