@@ -128,6 +128,30 @@ const addRole = () => {
 }
 
 const addEmployee = () => {
+    
+    let roleChoiceArray = [];
+    let managerChoiceArray = [{name: "None", value: null}];
+
+    db.query(`SELECT id, title FROM role`, (error, data) => {
+        if(error){
+            throw(error);
+        } else {
+            for(let i = 0; i < data.length; i++){
+                roleChoiceArray.push({name: `${data[i].title}`, value: `${data[i].id}`});
+            }
+        }
+    })
+
+    db.query(`SELECT id, first_name, last_name FROM employee`, (error, data) => {
+        if(error){
+            throw(error);
+        } else {
+            for(let i = 0; i < data.length; i++){
+                managerChoiceArray.push({name: `${data[i].first_name} ${data[i].last_name}`, value: `${data[i].id}`});
+            }
+        }
+    })
+
     inquirer.prompt([
         {
             type: "input",
@@ -136,17 +160,19 @@ const addEmployee = () => {
         },
         {
             type: "input",
-            message: "Please enter employee's las name: ",
+            message: "Please enter employee's last name: ",
             name: "lastName"
         },
         {
-            type: "input",
-            message: "Please enter employee's role: ",
+            type: "list",
+            message: "Please select employee's role: ",
+            choices: roleChoiceArray,
             name: "role"
         },
         {
-            type: "input",
-            message: "Please enter employee manager's ID: ",
+            type: "list",
+            message: "Please select employee's manager: ",
+            choices: managerChoiceArray,
             name: "managerID"
         }
     ])
