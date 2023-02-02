@@ -62,7 +62,7 @@ const addDepartment = () => {
     .then( answer => {
         const add = () =>{
             return new Promise((resolve, reject)=>{
-                db.query('INSERT INTO department VALUES (null, ?)', answer.departmentName, (error, results)=>{
+                db.query('INSERT INTO department VALUES (null, ?)', answer.departmentName, (error, results) => {
                     if(error){
                         return reject(error);
                     }
@@ -76,11 +76,47 @@ const addDepartment = () => {
     })
 }
 
+const addRole = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Please enter the title of the role you would like to add",
+            name: "title"
+        },
+        {
+            type: "input",
+            message: "Please enter the salary for this role",
+            name: "salary"
+        },
+        {
+            type: "input",
+            message: "Please enter the department for the role",
+            name: "department"
+        }
+    ])
+    .then( answers => {
+        const add = () =>{
+            return new Promise((resolve, reject)=>{
+                db.query('INSERT INTO role VALUES (null, ?, ?, ?)', [answers.title, answers.salary, answers.department], (error, results) => {
+                    if(error){
+                        return reject(error);
+                    }
+                    return resolve(results);
+                });
+            });
+        };
+        add()
+        .then(console.log("Role Added!"))
+        .then(viewAllRoles())
+        .then(delayedRunIt());
+    })
+}
+
 //Function to delay calling runIt() by 2 seconds (2000 ms)
 const delayedRunIt = () => {
     setTimeout(() => {
         runIt();
-    }, 2000)
+    }, 3000)
 }
 
 //Present user with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
@@ -123,6 +159,7 @@ const runIt = () => {
                 break;
 
             case 5:
+                addRole();
                 break;
 
             case 6:
