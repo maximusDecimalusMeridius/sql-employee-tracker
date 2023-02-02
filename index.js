@@ -323,7 +323,8 @@ const runIt = () => {
 
             case 8:
                 console.log("Goodbye!");
-                return;
+                db.close();
+                process.exit();
 
             default:
                 console.log("Oops!");
