@@ -187,12 +187,74 @@ const addEmployee = () => {
             });
         };
         add()
-        .then(console.log("Employee Added!"))
-        .then(viewAllEmployees())
-        .then(delayedRunIt());
+        .then( () => {
+            console.log("Employee Added!");
+            viewAllEmployees();
+            delayedRunIt();
+        })
     })
 }
 
+const updateEmployee = () => {
+    
+    let employeeChoiceArray = [];
+    let roleChoiceArray = [];
+
+    db.query(`SELECT id, title FROM role`, (error, data) => {
+        if(error){
+            throw(error);
+        } else {
+            for(let i = 0; i < data.length; i++){
+                roleChoiceArray.push({name: `${data[i].title}`, value: `${data[i].id}`});
+            }
+        }
+    })
+
+    const load = () =>{
+        return new Promise((resolve, reject)=>{
+            db.query(`SELECT id, first_name, last_name FROM employee`, (error, data) => {
+                if(error){
+                    throw(error);
+                } else {
+                    for(let i = 0; i < data.length; i++){
+                        employeeChoiceArray.push({name: `${data[i].first_name} ${data[i].last_name}`, value: `${data[i].id}`});
+                        console.log(employeeChoiceArray);
+                    }
+                    return resolve(employeeChoiceArray);
+                }
+            })
+        });
+    };
+
+    load()
+    .then( employeeChoiceArray => {
+        inquirer.prompt([
+            {
+                type: "list",
+                message: "Please enter employee name: ",
+                choices: employeeChoiceArray,
+                name: "name"
+            },
+            {
+                type: "list",
+                message: "Please enter the employee's new role: ",
+                choices: roleChoiceArray,
+                name: "role"
+            },
+
+        ])
+        .then( answer => {
+            db.query(`UPDATE employee SET role_id=? WHERE id=?`, [answer.role, answer.name], (error) => {
+                if(error){
+                    throw(error);
+                } else {
+                    console.log("Employee file updated!");
+                    delayedRunIt();
+                }
+            })
+        })
+    })    
+}
 //Function to delay calling runIt() by 2 seconds (2000 ms)
 const delayedRunIt = () => {
     setTimeout(() => {
@@ -249,19 +311,22 @@ const runIt = () => {
                 break;
 
             case 7:
+                updateEmployee();
                 break;
 
             case 8:
                 console.log("Goodbye!");
-                db.close();
                 return;
+                break;
 
             default:
                 console.log("Oops!");
                 break;
 
         }
+        return;
     })
+    return;
 }
 
 runIt();
