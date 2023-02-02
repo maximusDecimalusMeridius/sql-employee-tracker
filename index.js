@@ -72,6 +72,7 @@ const addDepartment = () => {
         };
         add()
         .then(console.log("Department Added!"))
+        .then(viewAllDepartments())
         .then(delayedRunIt());
     })
 }
@@ -108,6 +109,47 @@ const addRole = () => {
         add()
         .then(console.log("Role Added!"))
         .then(viewAllRoles())
+        .then(delayedRunIt());
+    })
+}
+
+const addEmployee = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Please enter employee's first name: ",
+            name: "firstName"
+        },
+        {
+            type: "input",
+            message: "Please enter employee's las name: ",
+            name: "lastName"
+        },
+        {
+            type: "input",
+            message: "Please enter employee's role: ",
+            name: "role"
+        },
+        {
+            type: "input",
+            message: "Please enter employee manager's ID: ",
+            name: "managerID"
+        }
+    ])
+    .then( answers => {
+        const add = () =>{
+            return new Promise((resolve, reject)=>{
+                db.query('INSERT INTO employee VALUES (null, ?, ?, ?, ?)', [answers.firstName, answers.lastName, answers.role, answers.managerID], (error, results) => {
+                    if(error){
+                        return reject(error);
+                    }
+                    return resolve(results);
+                });
+            });
+        };
+        add()
+        .then(console.log("Employee Added!"))
+        .then(viewAllEmployees())
         .then(delayedRunIt());
     })
 }
@@ -163,6 +205,7 @@ const runIt = () => {
                 break;
 
             case 6:
+                addEmployee();
                 break;
 
             case 7:
