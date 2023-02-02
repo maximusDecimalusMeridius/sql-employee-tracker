@@ -1,6 +1,7 @@
 //hook in dependencies
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
+require("console.table");
 
 //Initial Greeting
 console.log("Hello!");
@@ -317,16 +318,15 @@ const runIt = () => {
             case 8:
                 console.log("Goodbye!");
                 return;
-                break;
 
             default:
                 console.log("Oops!");
                 break;
 
         }
-        return;
+
     })
-    return;
+
 }
 
 runIt();
