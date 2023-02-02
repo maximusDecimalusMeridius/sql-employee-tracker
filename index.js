@@ -1,8 +1,11 @@
+//hook in dependencies
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
 
+//Initial Greeting
 console.log("Hello!");
 
+//hook in mysql database 'company_db'
 const db = mysql.createConnection(
     {
         host: 'localhost',
@@ -12,6 +15,7 @@ const db = mysql.createConnection(
     }
 )
 
+//query db for all department records and return in a table format
 const viewAllDepartments = () => {
     db.query(`SELECT * FROM department`, (error, data) => {
         if(error){
@@ -22,6 +26,7 @@ const viewAllDepartments = () => {
     })
 }
 
+//query db for all role records and return in a table format
 const viewAllRoles = () => {
     db.query(`SELECT * FROM role`, (error, data) => {
         if(error){
@@ -32,6 +37,7 @@ const viewAllRoles = () => {
     })
 }
 
+//query db for all employee records and return in a table format
 const viewAllEmployees = () => {
     db.query(`SELECT * FROM employee`, (error, data) => {
         if(error){
@@ -42,6 +48,7 @@ const viewAllEmployees = () => {
     })
 }
 
+//Function to delay calling runIt() by 2 seconds (2000 ms)
 const delayedRunIt = () => {
     setTimeout(() => {
         runIt();
