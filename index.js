@@ -1,6 +1,7 @@
 //hook in dependencies
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
+const util = require("util");
 
 //Initial Greeting
 console.log("Hello!");
@@ -24,6 +25,8 @@ const viewAllDepartments = () => {
             console.table(data);
         }
     })
+
+    
 }
 
 //query db for all role records and return in a table format
@@ -45,6 +48,31 @@ const viewAllEmployees = () => {
         } else {
             console.table(data);
         }
+    })
+}
+
+const addDepartment = () => {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Please enter the department you would like to add",
+            name: "departmentName"
+        }
+    ])
+    .then( answer => {
+        const add = () =>{
+            return new Promise((resolve, reject)=>{
+                db.query('INSERT INTO department VALUES (null, ?)', answer.departmentName, (error, results)=>{
+                    if(error){
+                        return reject(error);
+                    }
+                    return resolve(results);
+                });
+            });
+        };
+        add()
+        .then(console.log("Department Added!"))
+        .then(delayedRunIt());
     })
 }
 
@@ -91,6 +119,7 @@ const runIt = () => {
                 break;
 
             case 4:
+                addDepartment();
                 break;
 
             case 5:
