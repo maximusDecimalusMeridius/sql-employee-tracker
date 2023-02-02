@@ -51,6 +51,7 @@ const viewAllEmployees = () => {
     })
 }
 
+//Add a department to the db that doesn't exist
 const addDepartment = () => {
     inquirer.prompt([
         {
@@ -270,14 +271,19 @@ const runIt = () => {
             type: "list",
             message: "Please select an option",
             choices: [
-                {name: "View All Departments", value: 1},
-                {name: "View All Roles", value: 2},
-                {name: "View All Employees", value: 3},
-                {name: "Add a Department", value: 4},
-                {name: "Add a Role", value: 5},
-                {name: "Add an Employee", value: 6},
-                {name: "Update an Employee", value: 7},
-                {name: "Quit", value: 8},
+                new inquirer.Separator(" "),
+                {name: "1. View All Departments", value: 1},
+                {name: "2. View All Roles", value: 2},
+                {name: "3. View All Employees", value: 3},
+                new inquirer.Separator(),
+                {name: "4. Add a Department", value: 4},
+                {name: "5. Add a Role", value: 5},
+                {name: "6. Add an Employee", value: 6},
+                new inquirer.Separator(),
+                {name: "7. Update an Employee", value: 7},
+                new inquirer.Separator(),
+                {name: "8. Quit", value: 8},
+                new inquirer.Separator(" ")
             ],
             name: "listChoice"
         }
