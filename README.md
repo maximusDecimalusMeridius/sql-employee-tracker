@@ -2,7 +2,7 @@
 
 ## Description
 
-This challenge was to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
+This challenge was to build a command-line application from scratch to manage a company's employee database, using Node.js and MySQL using inquirer, mysql2 and console.table npm packages.
 
 ### User Story
 ```
