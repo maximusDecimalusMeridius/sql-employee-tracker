@@ -4,7 +4,16 @@ const inquirer = require("inquirer");
 require("console.table");
 
 //Initial Greeting
-console.log("Hello!");
+console.log(`
+***************************************************
+*                                                 *
+*                                                 *
+*                                                 *
+*       Welcome to MySQL Employee Tracker!        *
+*                                                 *
+*                                                 *
+*                                                 *
+***************************************************`);
 
 //hook in mysql database 'company_db'
 const db = mysql.createConnection(
