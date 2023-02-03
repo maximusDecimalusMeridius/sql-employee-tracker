@@ -54,7 +54,7 @@ To install download root files from github repository and run `npm install`.  Co
 
 ## Usage
 
-You can launch the application in your terminal by typing `node index`, then follow the prompts to view, add, or update records.
+You can launch the application in your terminal by typing `node index`, then follow the prompts to view, add, or update records.  View the **video walkthrough** on YouTube @ **https://youtu.be/myQsxR67SnU**.
 
 ### Screenshot of database schema
 ![Schema Thumbnail](./images/schema-thumbnail.png)
