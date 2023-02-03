@@ -229,7 +229,6 @@ const updateEmployee = () => {
                 } else {
                     for(let i = 0; i < data.length; i++){
                         employeeChoiceArray.push({name: `${data[i].first_name} ${data[i].last_name}`, value: `${data[i].id}`});
-                        console.log(employeeChoiceArray);
                     }
                     return resolve(employeeChoiceArray);
                 }
