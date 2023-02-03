@@ -54,7 +54,7 @@ To install download root files from github repository and run `npm install`.  Co
 
 ## Usage
 
-Visit the above URL, then click "Get Started" to see notes.  Users can view old notes by clicking them, or add a new note by clicking the '+' sign in the upper right hand corner, followed by the save icon after entering a note title and text.  Users can also delete notes by clicking the red trashcan associated with the note.
+You can launch the application in your terminal by typing `node index`, then follow the prompts to view, add, or update records.
 
 ### Screenshot of database schema
 ![Schema Thumbnail](./images/schema-thumbnail.png)
